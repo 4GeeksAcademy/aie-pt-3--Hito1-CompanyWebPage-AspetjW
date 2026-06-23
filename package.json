@@ -1,0 +1,31 @@
+{
+  "name": "aie-pt-3--hito1-companywebpage-aspetjw",
+  "version": "1.0.0",
+  "description": "[![4Geeks Academy](https://img.shields.io/badge/4Geeks-Academy-blue)](https://4geeksacademy.com) [![AI Engineering](https://img.shields.io/badge/track-AI%20Engineering-green)](https://4geeksacademy.com/es/programas-de-carrera/ingenieria-ia)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css --watch",
+    "serve": "npx http-server . -p 3000 -a 0.0.0.0",
+    "dev": "npm run build:css && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4GeeksAcademy/aie-pt-3--Hito1-CompanyWebPage-AspetjW.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/4GeeksAcademy/aie-pt-3--Hito1-CompanyWebPage-AspetjW/issues"
+  },
+  "homepage": "https://github.com/4GeeksAcademy/aie-pt-3--Hito1-CompanyWebPage-AspetjW#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.1",
+    "http-server": "^14.1.1"
+  }
+}
