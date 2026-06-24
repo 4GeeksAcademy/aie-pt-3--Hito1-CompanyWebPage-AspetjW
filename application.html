@@ -1,201 +1,490 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HealthCore | Aplicacion / Application</title>
+    <title>HealthCore | Patient Inquiry Form</title>
     <meta
+      id="page-description"
       name="description"
-      content="Formulario de aplicacion para organizaciones interesadas en soluciones de IA sanitaria de HealthCore."
+      content="Patient inquiry form for HealthCore. Submit your details to receive a follow-up call from our reception team."
     />
     <link rel="stylesheet" href="./dist/styles.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://healthcore.example/#organization",
-            "name": "HealthCore",
-            "url": "https://healthcore.example",
-            "email": "hola@healthcore.example",
-            "telephone": "+34910000000"
-          },
-          {
-            "@type": "WebPage",
-            "@id": "https://healthcore.example/application.html#webpage",
-            "url": "https://healthcore.example/application.html",
-            "name": "HealthCore Application",
-            "isPartOf": {
-              "@id": "https://healthcore.example/#website"
-            }
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Inicio",
-                "item": "https://healthcore.example/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Aplicacion",
-                "item": "https://healthcore.example/application.html"
-              }
-            ]
-          }
-        ]
-      }
+    <script>
+      (function applyLanguage() {
+        const urlLang = new URLSearchParams(window.location.search).get("lang");
+        const savedLang = localStorage.getItem("hc_lang");
+        const lang = urlLang === "es" || urlLang === "en" ? urlLang : savedLang === "es" ? "es" : "en";
+        document.documentElement.lang = lang;
+      })();
     </script>
   </head>
-  <body class="min-h-screen bg-gradient-to-b from-slate-50 via-white to-cyan-50 text-slate-900 antialiased">
-    <header class="border-b border-slate-200 bg-white" aria-label="Cabecera formulario">
-      <div class="mx-auto flex w-full max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
-        <a href="./index.html" class="text-sm font-semibold text-cyan-800 hover:text-cyan-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700">← Volver a la landing</a>
-        <p class="text-xs text-slate-600">ES | EN</p>
+  <body class="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#f1f5f9_100%)] text-slate-900 antialiased [font-family:'Segoe_UI','Trebuchet_MS','Lucida_Grande',ui-sans-serif,sans-serif]">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute -left-24 top-16 h-72 w-72 rounded-full bg-cyan-200/30 blur-3xl"></div>
+      <div class="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-emerald-200/22 blur-3xl"></div>
+      <div class="absolute bottom-8 left-1/3 h-72 w-72 rounded-full bg-sky-100/35 blur-3xl"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.09)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    </div>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-slate-900 focus:px-3 focus:py-2 focus:text-white"
+      data-i18n="skip"
+      >Skip to main content</a
+    >
+    <header class="sticky top-0 z-50 border-b border-slate-200/90 bg-slate-50/95 shadow-sm backdrop-blur-xl" aria-label="Form header" data-i18n-aria="aria_header_form">
+      <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+        <a id="back-home" href="./index.html?lang=en" class="text-sm font-semibold text-cyan-800 hover:text-cyan-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="back_home">← Back to home</a>
+
+        <nav aria-label="Form primary navigation" data-i18n-aria="aria_nav_form_primary">
+          <ul class="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white px-2 py-1 text-xs shadow-sm sm:text-sm">
+            <li><a href="#overview" class="rounded-md px-2 py-1 font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="nav_overview">Overview</a></li>
+            <li><a href="#personal-block" class="rounded-md px-2 py-1 font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="nav_personal">Personal</a></li>
+            <li><a href="#appointment-block" class="rounded-md px-2 py-1 font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="nav_appointment">Appointment</a></li>
+            <li><a href="#coverage-block" class="rounded-md px-2 py-1 font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="nav_coverage">Coverage</a></li>
+            <li><a href="#consent-block" class="rounded-md px-2 py-1 font-medium text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="nav_consent">Consent</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2 text-xs font-semibold" aria-label="Language switcher" data-i18n-aria="aria_language_switcher">
+          <a href="?lang=en" class="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-lang-btn="en">EN</a>
+          <a href="?lang=es" class="rounded-md border border-slate-300 bg-white px-2.5 py-1 text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-lang-btn="es">ES</a>
+        </div>
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6" id="main-content">
-      <section aria-labelledby="form-title" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5 sm:p-8">
-        <h1 id="form-title" class="text-3xl font-extrabold tracking-tight text-slate-950">Aplicacion de interes / Interest Application</h1>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">Completa este formulario para evaluar la adopcion de IA en tu organizacion sanitaria. Campos con * son obligatorios.</p>
+    <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8" id="main-content">
+      <section aria-label="Form toolbar" class="mb-5" data-reveal="true">
+        <div class="grid gap-3 md:grid-cols-[1fr_auto]">
+          <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+            <p class="text-sm text-slate-500">HealthCore Intake Dashboard</p>
+            <p class="text-base font-semibold tracking-tight text-slate-900">Patient Inquiry Workflow</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
+            <span class="font-semibold text-slate-900">Secure Intake</span>
+          </div>
+        </div>
+      </section>
+      <div class="grid items-start gap-6 lg:grid-cols-[1fr_21rem]">
+      <section id="overview" aria-labelledby="form-title" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.45)] sm:p-8 scroll-mt-28" data-reveal="true">
+        <h1 id="form-title" class="text-3xl tracking-tight text-slate-950 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif] lg:text-[2.1rem]" data-i18n="form_title">Patient Inquiry Form</h1>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600 lg:mt-4 lg:text-[0.98rem] lg:leading-7" data-i18n="form_intro">
+          This form is for patients seeking care. Our reception team will call to confirm appointment details.
+        </p>
 
-        <div id="form-status" class="mt-5 hidden rounded-md border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
+        <p class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900" data-i18n="partner_note">
+          Are you a healthcare provider or organization looking to partner with HealthCore? Contact our operations team at partnerships@healthcore.com
+        </p>
 
-        <form id="application-form" class="mt-6 space-y-8" novalidate aria-describedby="form-help">
-          <p id="form-help" class="sr-only">Formulario con validacion en tiempo real. Corrige los campos marcados antes de enviar.</p>
+        <div id="form-status" class="mt-5 hidden rounded-md border px-4 py-3 text-sm" role="status" aria-live="assertive" aria-atomic="true"></div>
+        <p id="schedule-warning" class="mt-3 hidden rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status" aria-live="polite" aria-atomic="true"></p>
 
-          <fieldset class="space-y-5" aria-labelledby="legend-persona">
-            <legend id="legend-persona" class="text-lg font-bold text-slate-900">1. Datos personales</legend>
+        <form id="application-form" class="mt-6 space-y-8" novalidate>
+          <fieldset id="personal-block" class="space-y-5 rounded-2xl border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:bg-slate-50 scroll-mt-28" aria-labelledby="legend-personal" data-reveal="true">
+            <legend id="legend-personal" class="px-2 text-lg text-slate-900 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="legend_personal">Personal details</legend>
 
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <label for="firstName" class="mb-1 block text-sm font-medium text-slate-800">Nombre * / First name *</label>
-                <input id="firstName" name="firstName" type="text" required autocomplete="given-name" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-firstName" />
-                <p id="error-firstName" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+                <label for="first_name" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_first_name">First name *</label>
+                <input id="first_name" name="first_name" type="text" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-first_name" />
+                <p id="error-first_name" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
               </div>
 
               <div>
-                <label for="lastName" class="mb-1 block text-sm font-medium text-slate-800">Apellidos * / Last name *</label>
-                <input id="lastName" name="lastName" type="text" required autocomplete="family-name" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-lastName" />
-                <p id="error-lastName" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+                <label for="last_name" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_last_name">Last name *</label>
+                <input id="last_name" name="last_name" type="text" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-last_name" />
+                <p id="error-last_name" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
               </div>
             </div>
 
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <label for="email" class="mb-1 block text-sm font-medium text-slate-800">Correo corporativo * / Work email *</label>
-                <input id="email" name="email" type="email" required autocomplete="email" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-email" />
+                <label for="date_of_birth" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_dob">Date of birth *</label>
+                <input id="date_of_birth" name="date_of_birth" type="date" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-date_of_birth" />
+                <p id="error-date_of_birth" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
+
+              <div>
+                <label for="email" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_email">Email *</label>
+                <input id="email" name="email" type="email" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-email" />
                 <p id="error-email" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
               </div>
+            </div>
+
+            <div>
+              <label for="phone" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_phone">Phone number *</label>
+              <input id="phone" name="phone" type="tel" placeholder="+1 305 555 0191" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-phone" />
+              <p id="error-phone" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+            </div>
+          </fieldset>
+
+          <fieldset id="appointment-block" class="space-y-5 rounded-2xl border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:bg-slate-50 scroll-mt-28" aria-labelledby="legend-appointment" data-reveal="true">
+            <legend id="legend-appointment" class="px-2 text-lg text-slate-900 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="legend_appointment">Appointment details</legend>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="preferred_language" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_preferred_language">Preferred language *</label>
+                <select id="preferred_language" name="preferred_language" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-preferred_language">
+                  <option value="" data-i18n="select_default">Select</option>
+                  <option value="English" data-i18n="opt_lang_en">English</option>
+                  <option value="Spanish" data-i18n="opt_lang_es">Spanish</option>
+                </select>
+                <p id="error-preferred_language" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
 
               <div>
-                <label for="phone" class="mb-1 block text-sm font-medium text-slate-800">Telefono * / Phone *</label>
-                <input id="phone" name="phone" type="tel" required inputmode="tel" placeholder="+34600111222" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="phone-help error-phone" />
-                <p id="phone-help" class="mt-1 text-xs text-slate-500">Formato E.164, ej. +34600111222</p>
-                <p id="error-phone" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+                <label for="preferred_clinic" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_preferred_clinic">Preferred clinic *</label>
+                <select id="preferred_clinic" name="preferred_clinic" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-preferred_clinic">
+                  <option value="" data-i18n="select_default">Select</option>
+                  <option value="HealthCore Austin Central">HealthCore Austin Central</option>
+                  <option value="HealthCore Austin North">HealthCore Austin North</option>
+                  <option value="HealthCore San Antonio">HealthCore San Antonio</option>
+                  <option value="HealthCore Miami">HealthCore Miami</option>
+                  <option value="HealthCore Orlando">HealthCore Orlando</option>
+                  <option value="HealthCore Atlanta">HealthCore Atlanta</option>
+                </select>
+                <p id="error-preferred_clinic" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="preferred_date" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_preferred_date">Preferred date *</label>
+                <input id="preferred_date" name="preferred_date" type="date" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-preferred_date" />
+                <p id="error-preferred_date" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
+
+              <div>
+                <label for="preferred_time" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_preferred_time">Preferred time slot *</label>
+                <select id="preferred_time" name="preferred_time" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-preferred_time">
+                  <option value="" data-i18n="select_default">Select</option>
+                  <option value="Morning (7am-12pm)" data-i18n="time_morning">Morning (7am-12pm)</option>
+                  <option value="Afternoon (12pm-5pm)" data-i18n="time_afternoon">Afternoon (12pm-5pm)</option>
+                  <option value="Evening (5pm-8pm)" data-i18n="time_evening">Evening (5pm-8pm)</option>
+                </select>
+                <p id="error-preferred_time" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
               </div>
             </div>
 
             <div>
-              <label for="country" class="mb-1 block text-sm font-medium text-slate-800">Pais * / Country *</label>
-              <select id="country" name="country" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-country">
-                <option value="">Selecciona / Select</option>
-                <option value="ES">Espana / Spain</option>
-                <option value="UK">Reino Unido / United Kingdom</option>
-                <option value="US">Estados Unidos / United States</option>
-                <option value="OT">Otro / Other</option>
+              <label for="service_type" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_service_type">Required service *</label>
+              <select id="service_type" name="service_type" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-service_type">
+                <option value="" data-i18n="select_default">Select</option>
+                <option value="Primary Care" data-i18n="service_primary">Primary Care</option>
+                <option value="Chronic Disease Management" data-i18n="service_chronic">Chronic Disease Management</option>
+                <option value="Specialist Consultation" data-i18n="service_specialist">Specialist Consultation</option>
+                <option value="Preventive Health" data-i18n="service_preventive">Preventive Health</option>
+                <option value="Women's Health" data-i18n="service_women">Women's Health</option>
+                <option value="Paediatric Care" data-i18n="service_paediatric">Paediatric Care</option>
+                <option value="Mental Health" data-i18n="service_mental">Mental Health</option>
               </select>
-              <p id="error-country" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              <p id="error-service_type" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
             </div>
           </fieldset>
 
-          <fieldset class="space-y-5" aria-labelledby="legend-empresa">
-            <legend id="legend-empresa" class="text-lg font-bold text-slate-900">2. Perfil de organizacion</legend>
+          <fieldset id="coverage-block" class="space-y-5 rounded-2xl border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:bg-slate-50 scroll-mt-28" aria-labelledby="legend-coverage" data-reveal="true">
+            <legend id="legend-coverage" class="px-2 text-lg text-slate-900 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="legend_coverage">Coverage and history</legend>
 
-            <div class="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label for="organization" class="mb-1 block text-sm font-medium text-slate-800">Organizacion * / Organization *</label>
-                <input id="organization" name="organization" type="text" required autocomplete="organization" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-organization" />
-                <p id="error-organization" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+            <div role="radiogroup" aria-labelledby="label-new-patient" aria-describedby="error-new_patient">
+              <p id="label-new-patient" class="mb-2 text-sm font-medium text-slate-800" data-i18n="label_new_patient">Is this your first visit to HealthCore? *</p>
+              <div class="flex flex-wrap gap-4">
+                <label class="inline-flex items-center gap-2 text-sm"><input type="radio" name="new_patient" value="Yes" class="h-4 w-4 border-slate-300 text-cyan-700 focus:ring-cyan-700" /> <span data-i18n="yes">Yes</span></label>
+                <label class="inline-flex items-center gap-2 text-sm"><input type="radio" name="new_patient" value="No" class="h-4 w-4 border-slate-300 text-cyan-700 focus:ring-cyan-700" /> <span data-i18n="no">No</span></label>
               </div>
-
-              <div>
-                <label for="orgSize" class="mb-1 block text-sm font-medium text-slate-800">Tamano * / Company size *</label>
-                <select id="orgSize" name="orgSize" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-orgSize">
-                  <option value="">Selecciona / Select</option>
-                  <option value="1-50">1-50</option>
-                  <option value="51-200">51-200</option>
-                  <option value="201-500">201-500</option>
-                  <option value="501+">501+</option>
-                </select>
-                <p id="error-orgSize" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
-              </div>
+              <p id="error-new_patient" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
             </div>
 
-            <div class="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label for="role" class="mb-1 block text-sm font-medium text-slate-800">Tu rol * / Your role *</label>
-                <select id="role" name="role" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-role">
-                  <option value="">Selecciona / Select</option>
-                  <option value="clinico">Clinico / Clinician</option>
-                  <option value="administracion">Administracion</option>
-                  <option value="facturacion">Facturacion / Revenue cycle</option>
-                  <option value="operaciones">Operaciones</option>
-                  <option value="ti">TI / IT</option>
-                </select>
-                <p id="error-role" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
-              </div>
-
-              <div>
-                <label for="interestArea" class="mb-1 block text-sm font-medium text-slate-800">Area de interes * / Interest area *</label>
-                <select id="interestArea" name="interestArea" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-interestArea">
-                  <option value="">Selecciona / Select</option>
-                  <option value="documentacion">Documentacion clinica asistida por IA</option>
-                  <option value="reclamaciones">Revision de reclamaciones asistida por IA</option>
-                  <option value="no-shows">Prediccion de no-shows y acceso</option>
-                </select>
-                <p id="error-interestArea" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
-              </div>
+            <div id="patient-id-wrapper" class="hidden">
+              <label for="patient_id" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_patient_id">Patient ID (optional for returning patients)</label>
+              <input id="patient_id" name="patient_id" type="text" placeholder="HC-A3F291" class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-patient_id" />
+              <p id="error-patient_id" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
             </div>
 
+            <div role="radiogroup" aria-labelledby="label-has-insurance" aria-describedby="error-has_insurance">
+              <p id="label-has-insurance" class="mb-2 text-sm font-medium text-slate-800" data-i18n="label_has_insurance">Do you have health insurance? *</p>
+              <div class="flex flex-wrap gap-4">
+                <label class="inline-flex items-center gap-2 text-sm"><input type="radio" name="has_insurance" value="Yes" class="h-4 w-4 border-slate-300 text-cyan-700 focus:ring-cyan-700" /> <span data-i18n="yes">Yes</span></label>
+                <label class="inline-flex items-center gap-2 text-sm"><input type="radio" name="has_insurance" value="No" class="h-4 w-4 border-slate-300 text-cyan-700 focus:ring-cyan-700" /> <span data-i18n="no">No</span></label>
+              </div>
+              <p id="error-has_insurance" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2" id="insurance-fields">
+              <div>
+                <label for="insurance_provider" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_insurance_provider">Insurance provider</label>
+                <input id="insurance_provider" name="insurance_provider" type="text" maxlength="100" class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-insurance_provider" />
+                <p id="error-insurance_provider" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
+
+              <div>
+                <label for="insurance_member_id" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_insurance_member_id">Insurance member ID</label>
+                <input id="insurance_member_id" name="insurance_member_id" type="text" class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="error-insurance_member_id" />
+                <p id="error-insurance_member_id" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset id="concern-block" class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:bg-slate-50 scroll-mt-28" aria-labelledby="legend-concern" data-reveal="true">
+            <legend id="legend-concern" class="px-2 text-lg text-slate-900 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="legend_concern">Medical concern</legend>
             <div>
-              <label for="mainChallenge" class="mb-1 block text-sm font-medium text-slate-800">Reto principal * / Main challenge *</label>
-              <textarea id="mainChallenge" name="mainChallenge" rows="4" required minlength="20" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm outline-none focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="challenge-help error-mainChallenge"></textarea>
-              <p id="challenge-help" class="mt-1 text-xs text-slate-500">Minimo 20 caracteres para entender tu caso.</p>
-              <p id="error-mainChallenge" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
+              <label for="health_concern" class="mb-1 block text-sm font-medium text-slate-800" data-i18n="label_health_concern">Brief description of your medical concern *</label>
+              <textarea id="health_concern" name="health_concern" rows="5" required class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700" aria-describedby="health-counter error-health_concern"></textarea>
+              <p id="health-counter" class="mt-1 text-xs text-slate-500">0 / 500 characters</p>
+              <p id="error-health_concern" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
             </div>
           </fieldset>
 
-          <fieldset class="space-y-4" aria-labelledby="legend-consentimiento">
-            <legend id="legend-consentimiento" class="text-lg font-bold text-slate-900">3. Consentimiento</legend>
-            <div class="rounded-md border border-slate-200 bg-slate-50 p-4">
-              <div class="flex items-start gap-3">
-                <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-slate-300 text-cyan-700 focus:ring-cyan-700" aria-describedby="error-consent" />
-                <label for="consent" class="text-sm text-slate-700">Acepto el tratamiento de datos para recibir una propuesta inicial de HealthCore. * / I consent to data processing for initial contact. *</label>
-              </div>
-              <p id="error-consent" class="mt-2 text-sm text-rose-700" aria-live="assertive"></p>
-            </div>
+          <fieldset id="consent-block" class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:bg-slate-50 scroll-mt-28" aria-labelledby="legend-consent" data-reveal="true">
+            <legend id="legend-consent" class="px-2 text-lg text-slate-900 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="legend_consent">Consent</legend>
+            <label class="inline-flex items-start gap-3 rounded-md border border-slate-200 bg-white p-4 text-sm text-slate-700">
+              <input id="contact_consent" name="contact_consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-slate-300 text-cyan-700 focus:ring-cyan-700" />
+              <span data-i18n="label_consent_text">I consent to HealthCore contacting me to confirm my appointment details. *</span>
+            </label>
+            <p id="error-contact_consent" class="mt-1 text-sm text-rose-700" aria-live="assertive"></p>
           </fieldset>
 
           <div class="flex flex-col gap-3 sm:flex-row">
-            <button type="submit" class="inline-flex items-center justify-center rounded-md bg-cyan-700 px-5 py-3 text-sm font-semibold text-white hover:bg-cyan-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700">Enviar aplicacion</button>
-            <button type="reset" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700">Limpiar formulario</button>
+            <button type="submit" class="inline-flex items-center justify-center rounded-md bg-cyan-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors duration-200 hover:bg-cyan-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="btn_submit">Submit inquiry</button>
+            <button type="reset" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700" data-i18n="btn_reset">Clear form</button>
           </div>
         </form>
       </section>
+
+      <aside id="guidance-block" class="lg:sticky lg:top-24 scroll-mt-28" aria-label="Patient guidance panel" data-i18n-aria="aria_guidance_panel" data-reveal="true">
+        <section class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 class="text-xl text-slate-950 [font-family:'Palatino_Linotype','Book_Antiqua',Palatino,serif]" data-i18n="panel_title">Before you submit</h2>
+          <p class="mt-2 text-sm text-slate-600" data-i18n="panel_intro">Complete all required fields and make sure your preferred date is within the next 60 days.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-700">
+            <li class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 transition-colors hover:bg-slate-100" data-i18n="panel_item_1">Use a phone number with country code.</li>
+            <li class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 transition-colors hover:bg-slate-100" data-i18n="panel_item_2">If you choose Paediatric Care, patient must be under 18.</li>
+            <li class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 transition-colors hover:bg-slate-100" data-i18n="panel_item_3">Insurance details are required only if you have insurance.</li>
+          </ul>
+          <div class="mt-5 rounded-xl border border-cyan-200 bg-cyan-50/80 p-4 text-sm text-cyan-900">
+            <p class="font-semibold" data-i18n="panel_contact_title">Need urgent help?</p>
+            <p class="mt-1" data-i18n="panel_contact_body">Call your preferred clinic directly using the phone numbers listed on the home page.</p>
+          </div>
+        </section>
+      </aside>
+      </div>
     </main>
 
-    <footer class="border-t border-slate-200 bg-white" aria-label="Pie de pagina formulario">
-      <div class="mx-auto w-full max-w-3xl px-4 py-6 text-sm text-slate-600 sm:px-6">
-        <p>HealthCore · Demo con datos simulados para debut digital.</p>
+    <footer class="border-t border-slate-200 bg-white" aria-label="Form footer" data-i18n-aria="aria_footer_form">
+      <div class="mx-auto w-full max-w-7xl px-4 py-6 text-sm text-slate-600 sm:px-6 lg:px-8">
+        <p data-i18n="footer_copyright">© 2025 HealthCore. All rights reserved.</p>
       </div>
     </footer>
 
+    <script>
+      const formTranslations = {
+        en: {
+          page_title: "HealthCore | Patient Inquiry Form",
+          page_description:
+            "Patient inquiry form for HealthCore. Submit your details to receive a follow-up call from our reception team.",
+          skip: "Skip to main content",
+          back_home: "← Back to home",
+          aria_header_form: "Form header",
+          aria_nav_form_primary: "Form primary navigation",
+          aria_language_switcher: "Language switcher",
+          aria_guidance_panel: "Patient guidance panel",
+          aria_footer_form: "Form footer",
+          nav_overview: "Overview",
+          nav_personal: "Personal",
+          nav_appointment: "Appointment",
+          nav_coverage: "Coverage",
+          nav_consent: "Consent",
+          form_title: "Patient Inquiry Form",
+          form_intro:
+            "This form is for patients seeking care. Our reception team will call to confirm appointment details.",
+          panel_title: "Before you submit",
+          panel_intro: "Complete all required fields and make sure your preferred date is within the next 60 days.",
+          panel_item_1: "Use a phone number with country code.",
+          panel_item_2: "If you choose Paediatric Care, patient must be under 18.",
+          panel_item_3: "Insurance details are required only if you have insurance.",
+          panel_contact_title: "Need urgent help?",
+          panel_contact_body: "Call your preferred clinic directly using the phone numbers listed on the home page.",
+          partner_note:
+            "Are you a healthcare provider or organization looking to partner with HealthCore? Contact our operations team at partnerships@healthcore.com",
+          legend_personal: "Personal details",
+          label_first_name: "First name *",
+          label_last_name: "Last name *",
+          label_dob: "Date of birth *",
+          label_email: "Email *",
+          label_phone: "Phone number *",
+          legend_appointment: "Appointment details",
+          label_preferred_language: "Preferred language *",
+          opt_lang_en: "English",
+          opt_lang_es: "Spanish",
+          label_preferred_clinic: "Preferred clinic *",
+          label_preferred_date: "Preferred date *",
+          label_preferred_time: "Preferred time slot *",
+          label_service_type: "Required service *",
+          select_default: "Select",
+          time_morning: "Morning (7am-12pm)",
+          time_afternoon: "Afternoon (12pm-5pm)",
+          time_evening: "Evening (5pm-8pm)",
+          service_primary: "Primary Care",
+          service_chronic: "Chronic Disease Management",
+          service_specialist: "Specialist Consultation",
+          service_preventive: "Preventive Health",
+          service_women: "Women's Health",
+          service_paediatric: "Paediatric Care",
+          service_mental: "Mental Health",
+          legend_coverage: "Coverage and history",
+          label_new_patient: "Is this your first visit to HealthCore? *",
+          yes: "Yes",
+          no: "No",
+          label_patient_id: "Patient ID (optional for returning patients)",
+          label_has_insurance: "Do you have health insurance? *",
+          label_insurance_provider: "Insurance provider",
+          label_insurance_member_id: "Insurance member ID",
+          legend_concern: "Medical concern",
+          label_health_concern: "Brief description of your medical concern *",
+          legend_consent: "Consent",
+          label_consent_text: "I consent to HealthCore contacting me to confirm my appointment details. *",
+          btn_submit: "Submit inquiry",
+          btn_reset: "Clear form",
+          footer_copyright: "© 2025 HealthCore. All rights reserved."
+        },
+        es: {
+          page_title: "HealthCore | Formulario de consulta para pacientes",
+          page_description:
+            "Formulario de consulta para pacientes de HealthCore. Envía tu información para que recepción te contacte y confirme tu cita.",
+          skip: "Saltar al contenido principal",
+          back_home: "← Volver al inicio",
+          aria_header_form: "Encabezado del formulario",
+          aria_nav_form_primary: "Navegacion principal del formulario",
+          aria_language_switcher: "Selector de idioma",
+          aria_guidance_panel: "Panel de orientacion para pacientes",
+          aria_footer_form: "Pie del formulario",
+          nav_overview: "Resumen",
+          nav_personal: "Datos personales",
+          nav_appointment: "Cita",
+          nav_coverage: "Cobertura",
+          nav_consent: "Consentimiento",
+          form_title: "Formulario de consulta para pacientes",
+          form_intro:
+            "Este formulario es para pacientes que buscan atención médica. Nuestro equipo de recepción te llamará para confirmar los detalles de la cita.",
+          panel_title: "Antes de enviar",
+          panel_intro: "Completa todos los campos obligatorios y confirma que tu fecha preferida esté dentro de los próximos 60 días.",
+          panel_item_1: "Usa un número de teléfono con código de país.",
+          panel_item_2: "Si eliges Atención Pediátrica, el paciente debe ser menor de 18 años.",
+          panel_item_3: "Los datos del seguro son obligatorios solo si tienes seguro.",
+          panel_contact_title: "¿Necesitas ayuda urgente?",
+          panel_contact_body: "Llama directamente a tu clínica preferida usando los teléfonos listados en la página principal.",
+          partner_note:
+            "¿Eres un proveedor de salud u organización que busca asociarse con HealthCore? Contacta a nuestro equipo de operaciones en partnerships@healthcore.com",
+          legend_personal: "Datos personales",
+          label_first_name: "Nombre *",
+          label_last_name: "Apellido *",
+          label_dob: "Fecha de nacimiento *",
+          label_email: "Correo electrónico *",
+          label_phone: "Número de teléfono *",
+          legend_appointment: "Datos de la cita",
+          label_preferred_language: "Idioma preferido *",
+          opt_lang_en: "Ingles",
+          opt_lang_es: "Espanol",
+          label_preferred_clinic: "Clínica preferida *",
+          label_preferred_date: "Fecha preferida *",
+          label_preferred_time: "Franja horaria preferida *",
+          label_service_type: "Servicio requerido *",
+          select_default: "Selecciona",
+          time_morning: "Mañana (7am-12pm)",
+          time_afternoon: "Tarde (12pm-5pm)",
+          time_evening: "Noche (5pm-8pm)",
+          service_primary: "Atención Primaria",
+          service_chronic: "Manejo de Enfermedades Crónicas",
+          service_specialist: "Consulta con Especialista",
+          service_preventive: "Salud Preventiva",
+          service_women: "Salud de la Mujer",
+          service_paediatric: "Atención Pediátrica",
+          service_mental: "Salud Mental",
+          legend_coverage: "Seguro e historial",
+          label_new_patient: "¿Es tu primera visita a HealthCore? *",
+          yes: "Sí",
+          no: "No",
+          label_patient_id: "ID de paciente (opcional para pacientes recurrentes)",
+          label_has_insurance: "¿Tienes seguro médico? *",
+          label_insurance_provider: "Aseguradora",
+          label_insurance_member_id: "ID de afiliado",
+          legend_concern: "Consulta médica",
+          label_health_concern: "Descripción breve de tu consulta médica *",
+          legend_consent: "Consentimiento",
+          label_consent_text: "Consiento que HealthCore me contacte para confirmar los detalles de mi cita. *",
+          btn_submit: "Enviar consulta",
+          btn_reset: "Limpiar formulario",
+          footer_copyright: "© 2025 HealthCore. Todos los derechos reservados."
+        }
+      };
+
+      function applyFormLanguage() {
+        const lang = document.documentElement.lang === "es" ? "es" : "en";
+        localStorage.setItem("hc_lang", lang);
+
+        document.title = formTranslations[lang].page_title;
+        const descriptionTag = document.getElementById("page-description");
+        if (descriptionTag) {
+          descriptionTag.setAttribute("content", formTranslations[lang].page_description);
+        }
+
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.getAttribute("data-i18n");
+          if (formTranslations[lang][key]) {
+            node.textContent = formTranslations[lang][key];
+          }
+        });
+
+        document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
+          const key = node.getAttribute("data-i18n-aria");
+          if (formTranslations[lang][key]) {
+            node.setAttribute("aria-label", formTranslations[lang][key]);
+          }
+        });
+
+        document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+          const btnLang = btn.getAttribute("data-lang-btn");
+          if (btnLang === lang) {
+            btn.classList.add("bg-slate-100", "text-slate-900");
+            btn.setAttribute("aria-current", "page");
+          } else {
+            btn.classList.remove("bg-slate-100", "text-slate-900");
+            btn.removeAttribute("aria-current");
+          }
+        });
+
+        const toHome = `./index.html?lang=${lang}`;
+        document.getElementById("back-home").setAttribute("href", toHome);
+
+        const counter = document.getElementById("health-counter");
+        if (counter) {
+          counter.textContent = `0 / 500 ${lang === "es" ? "caracteres" : "characters"}`;
+        }
+      }
+
+      applyFormLanguage();
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        const revealItems = document.querySelectorAll("[data-reveal='true']");
+        revealItems.forEach((item, index) => {
+          item.classList.add("opacity-0", "translate-y-3", "transition", "duration-500", "ease-out");
+          item.style.transitionDelay = `${index * 70}ms`;
+        });
+
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.remove("opacity-0", "translate-y-3");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.16 }
+        );
+
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
+    </script>
     <script src="./validation.js" defer></script>
   </body>
 </html>

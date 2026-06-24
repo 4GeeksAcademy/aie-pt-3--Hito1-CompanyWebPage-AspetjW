@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">HealthCore care illustration</title>
+  <desc id="desc">Abstract clinical illustration with healthcare professional silhouette and soft gradients.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dcfce7"/>
+      <stop offset="52%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#fce7f3"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="38%" r="42%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <ellipse cx="600" cy="360" rx="320" ry="260" fill="url(#halo)"/>
+
+  <circle cx="600" cy="295" r="88" fill="#f5d0c5"/>
+  <path d="M510 272c8-58 53-102 103-102s95 44 103 102c-23-17-38-17-53-17-18 0-34 9-50 9s-32-9-50-9c-17 0-32 2-53 17z" fill="#334155"/>
+  <path d="M538 392c26 18 49 26 62 26s36-8 62-26v38c0 36-22 56-62 56s-62-20-62-56z" fill="#f8b4a0"/>
+
+  <path d="M430 780c10-150 55-238 170-238s160 88 170 238z" fill="url(#coat)"/>
+  <rect x="560" y="540" width="80" height="240" rx="20" fill="#bae6fd"/>
+  <circle cx="600" cy="630" r="40" fill="#0f172a" fill-opacity="0.08"/>
+  <path d="M590 630a10 10 0 1 0 20 0 10 10 0 1 0-20 0" fill="#0f172a" fill-opacity="0.45"/>
+
+  <path d="M780 640c52-24 84-80 84-142" fill="none" stroke="#0f766e" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="862" cy="486" r="24" fill="#f8fafc" stroke="#0f766e" stroke-width="10"/>
+  <path d="M420 520h76" stroke="#0f172a" stroke-opacity="0.2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M704 520h76" stroke="#0f172a" stroke-opacity="0.2" stroke-width="8" stroke-linecap="round"/>
+</svg>
