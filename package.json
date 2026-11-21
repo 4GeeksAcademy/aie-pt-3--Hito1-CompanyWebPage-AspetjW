@@ -10,7 +10,10 @@
     "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css --minify",
     "watch:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/styles.css --watch",
     "serve": "npx http-server . -p 3000 -a 0.0.0.0",
-    "dev": "npm run build:css && npm run serve"
+    "dev": "npm run build:css && npm run serve",
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "tsc --noEmit --skipLibCheck"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
   "homepage": "https://github.com/4GeeksAcademy/aie-pt-3--Hito1-CompanyWebPage-AspetjW#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.1",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "typescript": "^5.3.3"
   }
 }
