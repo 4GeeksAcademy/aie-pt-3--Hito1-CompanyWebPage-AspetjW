@@ -6,7 +6,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 
 import { Candidate, CandidateStatus, CandidateStage, STATUS_LABELS, STAGE_LABELS, STATUS_COLORS } from '@/types/candidate';
@@ -40,12 +40,18 @@ export function CandidatesList() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Memoiza los filtros para evitar cambios innecesarios
+  const filters = useMemo(
+    () => ({
+      status: statusFilter,
+      stage: stageFilter,
+      search: searchQuery || undefined,
+    }),
+    [statusFilter, stageFilter, searchQuery]
+  );
+
   // Fetch de candidatos con filtros
-  const { candidates, isLoading, error, errorMessage, refresh } = useCandidates({
-    status: statusFilter,
-    stage: stageFilter,
-    search: searchQuery || undefined,
-  });
+  const { candidates, isLoading, error, errorMessage, refresh } = useCandidates(filters);
 
   // Funciones de filtrado
   const handleStatusFilter = useCallback(

@@ -39,6 +39,7 @@ export function CandidateDetail({ id }: { id: string }) {
   const [notes, setNotes] = useState<CandidateNote[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Modal de edición de candidato
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -59,6 +60,7 @@ export function CandidateDetail({ id }: { id: string }) {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [noteContent, setNoteContent] = useState('');
   const [isNoteSubmitting, setIsNoteSubmitting] = useState(false);
+  const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null);
 
   // Estados de selectores
   const [statusLoading, setStatusLoading] = useState(false);
@@ -213,11 +215,21 @@ export function CandidateDetail({ id }: { id: string }) {
   const handleDeleteNote = async (noteId: string) => {
     if (!confirm('¿Estás seguro de que deseas eliminar esta nota?')) return;
 
+    setDeletingNoteId(noteId);
+    setError(null);
+    setSuccessMessage(null);
+
     try {
       await deleteCandidateNote(id, noteId);
       setNotes((prev) => prev.filter((note) => note.id !== noteId));
+      setSuccessMessage('Nota eliminada correctamente');
+      
+      // Limpia el mensaje después de 3 segundos
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
       setError(getErrorMessage(err));
+    } finally {
+      setDeletingNoteId(null);
     }
   };
 
@@ -368,6 +380,12 @@ export function CandidateDetail({ id }: { id: string }) {
           </Button>
         </div>
 
+        {successMessage && (
+          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm">
+            {successMessage}
+          </div>
+        )}
+
         {notes.length === 0 ? (
           <p className="text-gray-500 text-center py-8">Sin notas aún</p>
         ) : (
@@ -382,8 +400,9 @@ export function CandidateDetail({ id }: { id: string }) {
                     onClick={() => handleDeleteNote(note.id)}
                     variant="danger"
                     size="sm"
+                    disabled={deletingNoteId === note.id}
                   >
-                    Eliminar
+                    {deletingNoteId === note.id ? 'Eliminando...' : 'Eliminar'}
                   </Button>
                 </div>
                 <p className="text-gray-900">{note.content}</p>
