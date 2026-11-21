@@ -65,6 +65,9 @@ export function useCandidates(filters?: CandidateFilters): UseCandidatesResult {
   }, [filters]);
 
   useEffect(() => {
+    // Establece mounted flag al montar
+    isMountedRef.current = true;
+
     // Verifica si hay caché válido
     if (
       cacheRef.current &&
@@ -75,7 +78,10 @@ export function useCandidates(filters?: CandidateFilters): UseCandidatesResult {
       setCandidates(cacheRef.current.data);
       setIsLoading(false);
       setError(null);
-      return;
+      
+      return () => {
+        isMountedRef.current = false;
+      };
     }
 
     // Si no hay caché válido, hace fetch
