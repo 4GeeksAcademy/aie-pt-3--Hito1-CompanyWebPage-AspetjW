@@ -1,0 +1,14 @@
+# Archivos legados duplicados (documentación centralizada en /docs)
+BRIEFING.md
+CONTEXT.md
+CONTEXT-briefing.md
+CONTEXT-briefing.es.md
+README.es.md
+README_MILESTONE2.md
+MILESTONE2.md
+VERIFICACION_CASTELLANO.md
+EJEMPLOS_USO.ts
+
+# Archivos de auditoría (si se desean ignorar)
+# AUDITORIA_REPOSITORIO.md
+# MIGRACION_DOCUMENTACION.md
