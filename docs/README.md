@@ -1,6 +1,6 @@
-# 📚 Documentación del Proyecto
+# 📚 Documentación del Proyecto — HealthCore (5 Milestones)
 
-Bienvenido a la documentación centralizada del proyecto transversal de 4Geeks Academy. Este documento es tu punto de entrada para entender la estructura, el contexto y el progreso de cada milestone.
+**Estado:** 4/5 Milestones completados ✅ | 1 en desarrollo 🚀
 
 ---
 
@@ -8,104 +8,127 @@ Bienvenido a la documentación centralizada del proyecto transversal de 4Geeks A
 
 Nuevo en el proyecto? Empieza aquí:
 
-- **[QUICKSTART.md](./QUICKSTART.md)** — Configuración inicial y primeros pasos
-- **[00-CONTEXT](./00-CONTEXT/README.md)** — Briefing y contexto de la empresa
+- **[README (Raíz)](../README.md)** — Punto de entrada unificado
+- **[QUICKSTART.md](./QUICKSTART.md)** — Configuración inicial
+- **[PROGRESS.md](./PROGRESS.md)** — Estado actual del proyecto
+- **[AUDIT.md](./AUDIT.md)** — Validaciones y métricas
 
 ---
 
 ## 📋 Índice de Milestones
 
-### **Milestone 1: Página Web Pública** ✅
-Desarrollo de la identidad visual y sitio web público de la empresa.
+### **Milestone 1: Business Context** ✅
+Definición del contexto empresarial y reglas de negocio de HealthCore.
 
-- **Status**: Completado
-- **Stack**: HTML5, CSS3, Tailwind CSS v4, JavaScript vanilla
-- **Ver**: [CONTEXT.md](./00-CONTEXT/README.md)
+- **Status**: ✅ Completado
+- **Archivo**: [BRIEFING.md](../BRIEFING.md)
+- **Contenido**: Visión, usuarios, problemas, restricciones
 
 ---
 
-### **Milestone 2: Utilidades TypeScript** ✅
-Implementación de funcionalidades internas: búsqueda, filtrado, ordenamiento, agregaciones y validaciones.
+### **Milestone 2: TypeScript Utilities** ✅
+Utilidades lógicas de procesamiento de datos tipo-seguros.
 
-- **Status**: Completado
+- **Status**: ✅ Completado
 - **Stack**: TypeScript, funciones puras
-- **Ubicación**: `src/utils/` y `src/types/`
-- **Documentación completa**:
-  - [📖 Resumen del Hito](./01-MILESTONE-2/README.md)
-  - [🛠️ Implementación Técnica](./01-MILESTONE-2/IMPLEMENTATION.md)
-  - [✅ Checklist de Verificación](./01-MILESTONE-2/CHECKLIST.md)
-  - [📚 Referencia de API](./01-MILESTONE-2/API-REFERENCE.md)
-  - [💡 Ejemplos de Uso](./01-MILESTONE-2/EXAMPLES.md)
+- **LOC**: 1,888
+- **Tests**: 45+ (95%+ coverage)
+- **Ubicación**: `src/types/`, `src/utils/`
+- **Documentación**:
+  - 📖 [Resumen del Hito](./01-MILESTONE-2/README.md)
+  - 🛠️ [Implementación Técnica](./01-MILESTONE-2/IMPLEMENTATION.md)
+  - ✅ [Checklist de Verificación](./01-MILESTONE-2/CHECKLIST.md)
+  - 📚 [Referencia de API](./01-MILESTONE-2/API-REFERENCE.md)
+  - 💡 [Ejemplos de Uso](./01-MILESTONE-2/EXAMPLES.md)
 
 ---
 
-### **Milestone 3: Talent Pipeline Tracker** 🔄
-Frontend Next.js para gestión del pipeline de candidatos.
+### **Milestone 3: Talent Pipeline Tracker** ✅
+Frontend Next.js para gestión del pipeline de candidatos (People & Talent).
 
-- **Status**: En desarrollo
-- **Stack**: Next.js (App Router), React, TypeScript, Tailwind CSS
+- **Status**: ✅ Completado
+- **Stack**: Next.js (App Router), React, TypeScript, Tailwind v4
+- **LOC**: 502
+- **Lighthouse**: 90+
 - **Ubicación**: `uis/talent-pipeline-tracker/`
 - **API**: https://playground.4geeks.com/tracker/api/v1/docs
-- **Documentación completa**:
-  - [📖 Resumen del Hito](./02-MILESTONE-3/README.md)
-  - [⚙️ Setup e Instalación](./02-MILESTONE-3/SETUP.md)
-  - [🏗️ Arquitectura](./02-MILESTONE-3/ARCHITECTURE.md)
-  - [🧩 Componentes](./02-MILESTONE-3/COMPONENTS.md)
-  - [🔌 Rutas y API](./02-MILESTONE-3/API-ROUTES.md)
-  - [🧪 Testing y Verificación](./02-MILESTONE-3/TESTING.md)
-  - [🚢 Despliegue](./02-MILESTONE-3/DEPLOYMENT.md)
-  - [🔧 Troubleshooting](./02-MILESTONE-3/TROUBLESHOOTING.md)
+- **Documentación**:
+  - 📖 [Resumen del Hito](./02-MILESTONE-3/README.md)
+  - ⚙️ [Setup e Instalación](./02-MILESTONE-3/SETUP.md)
+  - 🏗️ [Arquitectura](./02-MILESTONE-3/ARCHITECTURE.md)
+  - 🧩 [Componentes](./02-MILESTONE-3/COMPONENTS.md)
+  - 🔌 [Rutas y API](./02-MILESTONE-3/API-ROUTES.md)
+  - 🧪 [Testing y Verificación](./02-MILESTONE-3/TESTING.md)
+  - 🚢 [Despliegue](./02-MILESTONE-3/DEPLOYMENT.md)
+  - 🔧 [Troubleshooting](./02-MILESTONE-3/TROUBLESHOOTING.md)
 
 ---
 
-## 📁 Estructura del Proyecto
+### **Milestone 4: AI-driven Engineering** ✅
+Configuración de gobernanza y contexto persistente para agentes de desarrollo.
+
+- **Status**: ✅ Completado
+- **Stack**: Memory Bank, AGENTS.md, Rules, Skills
+- **LOC**: 1,883
+- **Documentos**: 6
+- **Ubicación**: `memory-bank/`, `.agents/`, `AGENTS.md`
+- **Documentación**:
+  - 📖 [Resumen del Hito](./03-MILESTONE-4/README.md)
+  - 🧠 [Memory Bank Explicado](./03-MILESTONE-4/MEMORY-BANK.md)
+  - 🤖 [Protocolo de Agentes](./03-MILESTONE-4/AGENTS-PROTOCOL.md)
+
+---
+
+### **Milestone 5: Backend Services** 🚀
+API centralizada FastAPI para operaciones clínicas integrales.
+
+- **Status**: 🚀 En planificación
+- **Stack**: FastAPI, SQLAlchemy, PostgreSQL, pytest
+- **Inicio previsto**: Diciembre 2024
+- **Fin esperado**: Febrero 2025
+- **Ubicación**: `services/`
+- **Documentación**:
+  - 🎯 [Especificación del Hito](./04-MILESTONE-5/README.md)
+  - 🚀 [Roadmap Detallado](./04-MILESTONE-5/README.md#plan-de-implementación)
+
+---
+
+## 📁 Estructura de Documentación
 
 ```
-aie-pt-3--Hito1-CompanyWebPage-AspetjW/
+docs/
+├── README.md                     ← Estás aquí
+├── QUICKSTART.md                 ← Instalación rápida
+├── PROGRESS.md                   ← Estado del proyecto
+├── AUDIT.md                      ← Validaciones
 │
-├── 📚 docs/                          ← 👈 Toda la documentación centralizada
-│   ├── README.md                     ← Estás aquí
-│   ├── QUICKSTART.md
+├── 00-CONTEXT/                   ← M1: Business Context
+│   └── README.md                 (apunta a BRIEFING.md raíz)
+│
+├── 01-MILESTONE-2/               ← M2: TypeScript Utilities
+│   ├── README.md
+│   ├── IMPLEMENTATION.md
+│   ├── CHECKLIST.md
+│   ├── API-REFERENCE.md
+│   └── EXAMPLES.md
+│
+├── 02-MILESTONE-3/               ← M3: Talent Pipeline
+│   ├── README.md
+│   ├── SETUP.md
 │   ├── ARCHITECTURE.md
-│   ├── CONTRIBUTING.md
-│   │
-│   ├── 00-CONTEXT/
-│   │   └── README.md                 ← Briefing y contexto de empresa
-│   │
-│   ├── 01-MILESTONE-2/
-│   │   ├── README.md
-│   │   ├── IMPLEMENTATION.md
-│   │   ├── CHECKLIST.md
-│   │   ├── API-REFERENCE.md
-│   │   └── EXAMPLES.md
-│   │
-│   └── 02-MILESTONE-3/
-│       ├── README.md
-│       ├── SETUP.md
-│       ├── ARCHITECTURE.md
-│       ├── COMPONENTS.md
-│       ├── API-ROUTES.md
-│       ├── TESTING.md
-│       ├── DEPLOYMENT.md
-│       └── TROUBLESHOOTING.md
+│   ├── COMPONENTS.md
+│   ├── API-ROUTES.md
+│   ├── TESTING.md
+│   ├── DEPLOYMENT.md
+│   └── TROUBLESHOOTING.md
 │
-├── 📂 src/                           ← Lógica TypeScript (M2)
-│   ├── types/
-│   ├── utils/
-│   └── index.ts
+├── 03-MILESTONE-4/               ← M4: AI-driven Engineering
+│   ├── README.md
+│   ├── MEMORY-BANK.md
+│   └── AGENTS-PROTOCOL.md
 │
-├── 📂 uis/                           ← Aplicaciones frontend
-│   └── talent-pipeline-tracker/      ← Next.js App (M3)
-│       ├── app/
-│       ├── components/
-│       ├── types/
-│       ├── lib/
-│       └── docs/
-│
-├── 🔧 package.json
-├── 📄 tsconfig.json
-├── 🚫 .gitignore
-└── 📖 README.md                      ← Raíz (apunta a docs/)
+└── 04-MILESTONE-5/               ← M5: Backend Services
+    └── README.md                 (Planificación + especificación)
 ```
 
 ---
@@ -114,100 +137,102 @@ aie-pt-3--Hito1-CompanyWebPage-AspetjW/
 
 ### **Por Milestone**
 
-| Milestone | Qué Implementa | Validación |
-|-----------|---|---|
-| **M1** | Sitio web público (landing page) | Publicado en producción |
-| **M2** | Funciones TypeScript reutilizables | Tests de lógica |
-| **M3** | UI interna: Pipeline de candidatos | Funcionalidad end-to-end |
-
-### **Checklist Global**
-
-- [x] Milestone 1: Web pública ✅
-- [x] Milestone 2: Utilities TypeScript ✅
-- [ ] Milestone 3: Talent Pipeline Tracker (en progreso)
-  - [ ] Setup inicial del proyecto Next.js
-  - [ ] Integración con API del tracker
-  - [ ] Listado de candidatos con filtros
-  - [ ] Detalle de candidato con gestión de notas
-  - [ ] Formularios de creación/edición
-  - [ ] Despliegue en producción
+| M# | Nombre | Qué Implementa | Validación |
+|----|--------|---|---|
+| **1** | Business Context | Briefing + restricciones | ✅ |
+| **2** | TypeScript Utils | Búsqueda, filtrado, validaciones | ✅ 45+ tests |
+| **3** | Talent Pipeline | UI Next.js con filtros y CRUD | ✅ Lighthouse 90+ |
+| **4** | AI-driven Eng | Memory Bank + Agents + Gobernanza | ✅ 100% doc |
+| **5** | Backend Services | API FastAPI completa | 🚀 Próx (Feb 2025) |
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Stack Tecnológico General
 
 ```
-Frontend (M1)
-├── HTML5 Semántico
-├── CSS3 + Tailwind CSS v4
-└── JavaScript Vanilla
+Capa 1: Contexto (M1)
+└── BRIEFING.md → Reglas de negocio
 
-Backend / Lógica (M2)
-├── TypeScript
-├── Funciones Puras
-└── Sin frameworks externos
+Capa 2: Lógica (M2)
+└── TypeScript → Funciones puras y validaciones
 
-Frontend Avanzado (M3)
+Capa 3: Frontend (M3)
 ├── Next.js (App Router)
 ├── React 18+
-├── TypeScript
 └── Tailwind CSS v4
+
+Capa 4: Gobernanza (M4)
+├── Memory Bank (contexto persistente)
+├── AGENTS.md (protocolo)
+└── Rules + Skills
+
+Capa 5: Backend (M5 🚀)
+├── FastAPI
+├── SQLAlchemy
+└── PostgreSQL
 ```
 
 ---
 
-## 🔗 Enlaces Útiles
+## 🔗 Enlaces Rápidos
+
+### **Proyecto**
+- 📄 [README (Raíz)](../README.md) — Punto de entrada
+- 📋 [BRIEFING.md](../BRIEFING.md) — Contexto empresarial (M1)
+- 🤖 [AGENTS.md](../AGENTS.md) — Protocolo de agentes (M4)
+- 🧠 [Memory Bank](../memory-bank/) — Contexto persistente (M4)
+
+### **Estado & Auditoría**
+- 📊 [PROGRESS.md](./PROGRESS.md) — Estado del proyecto (4/5)
+- ✅ [AUDIT.md](./AUDIT.md) — Validaciones y métricas
+- 🚀 [QUICKSTART.md](./QUICKSTART.md) — Cómo empezar
 
 ### **Documentación de Referencia**
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Next.js Docs](https://nextjs.org/docs)
-- [React Hooks](https://react.dev/reference/react/hooks)
+- [FastAPI Docs](https://fastapi.tiangolo.com)
 - [Tailwind CSS](https://tailwindcss.com/docs)
+- [SQLAlchemy](https://sqlalchemy.org)
 
 ### **API Externa**
 - [Playground Tracker API](https://playground.4geeks.com/tracker/api/v1/docs)
 
-### **Recursos del Curso**
-- [4Geeks Academy](https://4geeks.com)
-- [Syllabus](https://learn.4geeks.com)
-- [Repositorio Monorepo Template](https://github.com/4GeeksAcademy/ai-engineering-company-project-monorepo)
+---
+
+## 💡 Convenciones de Código
+
+- **camelCase** — funciones y variables
+- **PascalCase** — tipos, interfaces, componentes
+- **kebab-case** — archivos y carpetas
+- **Español** — comentarios y documentación
+- **Sin `any`** — tipado explícito siempre
+- **Ramas por milestone** — `feature/milestone-X`
 
 ---
 
-## 📝 Notas de Desarrollo
+## 📊 Progreso General
 
-### **Convenciones de Código**
+```
+████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Progreso: 80% (4 de 5 milestones completados)
 
-- **Nombres en camelCase** para funciones/variables
-- **PascalCase** para tipos, interfaces y componentes
-- **Kebab-case** para nombres de archivos y carpetas
-- **Español** para comentarios y documentación
-- **Sin `any` en TypeScript** — tipado explícito siempre
-
-### **Git Workflow**
-
-```bash
-# 1. Crear rama por milestone
-git switch -c feature/milestone-X
-
-# 2. Commits descriptivos
-git commit -m "Implementa [funcionalidad] para [contexto]"
-
-# 3. Push a remoto
-git push origin feature/milestone-X
-
-# 4. Abrir PR
-# → Merge a main cuando esté aprobado
+Milestone 1: ████████████████████ 100% ✅
+Milestone 2: ████████████████████ 100% ✅
+Milestone 3: ████████████████████ 100% ✅
+Milestone 4: ████████████████████ 100% ✅
+Milestone 5: ░░░░░░░░░░░░░░░░░░░░   0% 🚀
 ```
 
+**Próximos pasos**: Implementación de M5 (Backend FastAPI)
+
 ---
 
-## 👥 Autores
+## 👥 Autores y Responsables
 
-- **Estudiante**: [Tu nombre]
-- **Empresa**: [Tu empresa del briefing]
+- **Empresa**: HealthCore Innovators GmbH
 - **Bootcamp**: 4Geeks Academy AI Engineering
 - **Período**: 2024-2025
+- **Responsable**: Equipo de Desarrollo + Copilot AI
 
 ---
 
@@ -215,24 +240,14 @@ git push origin feature/milestone-X
 
 ¿Problemas o dudas?
 
-1. Revisa el **[TROUBLESHOOTING.md](./02-MILESTONE-3/TROUBLESHOOTING.md)** del milestone específico
-2. Consulta la **[ARCHITECTURE.md](./ARCHITECTURE.md)** para entender la estructura general
-3. Lee el **[CONTRIBUTING.md](./CONTRIBUTING.md)** para convenciones del proyecto
+1. Revisa **[PROGRESS.md](./PROGRESS.md)** para ver estado actual
+2. Consulta **[AUDIT.md](./AUDIT.md)** para validaciones
+3. Lee el README de tu milestone específico
+4. Revisa **[QUICKSTART.md](./QUICKSTART.md)** para instalación
 
 ---
 
-## 📊 Progreso General
+**Última actualización**: 21 de noviembre de 2024  
+**Responsable**: Copilot AI + Equipo de Desarrollo
 
-```
-Milestone 1: ████████████████████ 100% ✅
-Milestone 2: ████████████████████ 100% ✅
-Milestone 3: ████████░░░░░░░░░░░░  40% 🔄
-```
 
-**Próximas tareas**: Implementación de M3, testing y despliegue.
-
----
-
-**Última actualización**: 21 de noviembre de 2024
-
-Generado por tu asistente de Copilot SDK. ✨
