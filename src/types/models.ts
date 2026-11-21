@@ -105,7 +105,7 @@ export type TipoProveedor =
   | "HOSPITAL"
   | "CLINICA"
   | "LABORATORIO"
-  | "CENTRO_IMAGENES"
+  | "FARMACIA"
   | "ESPECIALISTA";
 
 export interface Proveedor {
@@ -135,53 +135,52 @@ export interface ReporteDesempenoProveedor {
 
 // ==================== TIPOS DE NOTA CLÍNICA ====================
 
-export type TipoDocumento =
-  | "NOTA_EVOLUCION"
-  | "RESUMEN_ALTA"
-  | "RESULTADO_LABORATORIO"
-  | "REPORTE_IMAGENES"
-  | "RECETA";
+export type TipoNota =
+  | "DIAGNOSTICO"
+  | "EVOLUCION"
+  | "ALTA"
+  | "CONSULTA_EXTERNA";
 
 export interface NotaClinica {
   id: string;
   idPaciente: string;
   idProveedor: string;
   fechaCreacion: Date;
-  tipoDocumento: TipoDocumento;
   contenido: string;
-  cantidadPalabras: number;
-  palabrasClave: string[];
-  procesadoPorIA: boolean;
-  puntuacionConfianza: number;
+  tipo: TipoNota;
+  diagnosticos: string[];
+  medicamentos: string[];
+  recomendaciones: string[];
+  region: "US" | "UK";
 }
 
 // ==================== TIPOS DE CITA ====================
 
-export type EstadoAsistencia =
+export type EstadoCita =
   | "PROGRAMADA"
-  | "ASISTIO"
-  | "NO_ASISTIO"
-  | "CANCELADA"
-  | "REPROGRAMADA";
+  | "COMPLETADA"
+  | "FALTADA"
+  | "CANCELADA";
 
 export interface Cita {
   id: string;
   idPaciente: string;
   idProveedor: string;
-  fechaProgramada: Date;
-  estadoAsistencia: EstadoAsistencia;
-  tipoCita: string;
-  recordatoriosEnviados: number;
-  region: "US" | "UK";
+  fechaCita: Date;
+  estado: EstadoCita;
   duracionMinutos: number;
+  tipoVisita: "PRESENCIAL" | "TELEMEDICA";
+  razonVisita: string;
+  montoFacturado: number;
+  region: "US" | "UK";
 }
 
-export interface FiltrosCita {
-  estadoAsistencia?: EstadoAsistencia[];
+export interface FiltroCita {
+  estado?: EstadoCita[];
   region?: "US" | "UK";
   fechaInicio?: Date;
   fechaFin?: Date;
-  recordatoriosMinimo?: number;
+  tipoVisita?: "PRESENCIAL" | "TELEMEDICA";
 }
 
 export interface ReportePrediccionInasistencia {
@@ -189,10 +188,9 @@ export interface ReportePrediccionInasistencia {
   tasaAsistencia: number;
   tasaInasistencia: number;
   inasistenciasPorRegion: Record<"US" | "UK", number>;
-  inasistenciasPorDiaSemana: Record<string, number>;
-  recordatoriosPromAsistencia: number;
-  recordatoriosPromInasistencia: number;
+  inasistenciasPorTipoVisita: Record<"PRESENCIAL" | "TELEMEDICA", number>;
   pacientesAltoRiesgo: number;
+  correlacionEdadNoShow: number;
 }
 
 // ==================== TIPOS UTILITARIOS ====================

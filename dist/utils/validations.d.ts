@@ -29,7 +29,7 @@ export declare function validarPaciente(paciente: Paciente): ResultadoValidacion
 export declare function validarProveedor(proveedor: Proveedor): ResultadoValidacion;
 /**
  * Valida una nota clínica completa según reglas de negocio
- * Complejidad temporal: O(n) donde n es cantidad de palabras clave
+ * Complejidad temporal: O(n) donde n es cantidad de arrays
  *
  * @param nota - Nota clínica a validar
  * @returns Resultado de validación

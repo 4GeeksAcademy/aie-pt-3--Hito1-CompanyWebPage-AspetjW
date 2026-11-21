@@ -30,9 +30,9 @@ export declare function busquedaLinealTodos<T>(array: T[], predicado: Predicado<
  * @param array - Array ordenado a buscar
  * @param valor - Valor a encontrar
  * @param comparadorFn - Función comparadora (retorna <0, 0, o >0)
- * @returns Elemento coincidente o undefined
+ * @returns Índice del elemento coincidente o -1 si no se encuentra
  */
-export declare function busquedaBinaria<T>(array: T[], valor: T, comparadorFn: Comparador<T>): T | undefined;
+export declare function busquedaBinaria<T>(array: T[], valor: T, comparadorFn: Comparador<T>): number;
 /**
  * Búsqueda binaria para encontrar posición de inserción
  * Útil para mantener arrays ordenados
