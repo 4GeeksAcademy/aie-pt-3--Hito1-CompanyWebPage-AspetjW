@@ -358,7 +358,7 @@ export function generarReporteDesempenoProveedor(
     HOSPITAL: conteosPorTipo["HOSPITAL"] || 0,
     CLINICA: conteosPorTipo["CLINICA"] || 0,
     LABORATORIO: conteosPorTipo["LABORATORIO"] || 0,
-    CENTRO_IMAGENES: conteosPorTipo["CENTRO_IMAGENES"] || 0,
+    FARMACIA: conteosPorTipo["FARMACIA"] || 0,
     ESPECIALISTA: conteosPorTipo["ESPECIALISTA"] || 0,
   };
 
@@ -395,24 +395,6 @@ export function generarReporteDesempenoProveedor(
 // ==================== REPORTES DE CITAS ====================
 
 /**
- * Obtiene nombre del día de la semana
- * @param fecha - Fecha
- * @returns Nombre del día
- */
-function obtenerNombreDia(fecha: Date): string {
-  const dias = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-  ];
-  return dias[fecha.getDay()];
-}
-
-/**
  * Genera reporte de predicción de inasistencia
  * Complejidad temporal: O(n)
  *
@@ -430,59 +412,64 @@ export function generarReportePrediccionInasistencia(
       tasaAsistencia: 0,
       tasaInasistencia: 0,
       inasistenciasPorRegion: { US: 0, UK: 0 },
-      inasistenciasPorDiaSemana: {},
-      recordatoriosPromAsistencia: 0,
-      recordatoriosPromInasistencia: 0,
+      inasistenciasPorTipoVisita: { PRESENCIAL: 0, TELEMEDICA: 0 },
       pacientesAltoRiesgo: 0,
+      correlacionEdadNoShow: 0,
     };
   }
 
   // Contar asistencias e inasistencias
-  const asistidas = citas.filter((c) => c.estadoAsistencia === "ASISTIO");
-  const noAsistidas = citas.filter((c) => c.estadoAsistencia === "NO_ASISTIO");
+  const completadas = citas.filter((c) => c.estado === "COMPLETADA");
+  const faltadas = citas.filter((c) => c.estado === "FALTADA");
 
   // Tasas
-  const tasaAsistencia = (asistidas.length / citas.length) * 100;
-  const tasaInasistencia = (noAsistidas.length / citas.length) * 100;
+  const tasaAsistencia = (completadas.length / citas.length) * 100;
+  const tasaInasistencia = (faltadas.length / citas.length) * 100;
 
   // Inasistencias por región
-  const conteosPorRegion = contarPorPropiedad(noAsistidas, "region");
+  const conteosPorRegion = contarPorPropiedad(faltadas, "region");
   const inasistenciasPorRegion = {
     US: conteosPorRegion["US"] || 0,
     UK: conteosPorRegion["UK"] || 0,
   };
 
-  // Inasistencias por día de semana
-  const inasistenciasPorDia: Record<string, number> = {};
-  for (const cita of noAsistidas) {
-    const diaNombre = obtenerNombreDia(cita.fechaProgramada);
-    inasistenciasPorDia[diaNombre] = (inasistenciasPorDia[diaNombre] || 0) + 1;
-  }
-
-  // Promedio de recordatorios
-  const recordatoriosPromAsistencia =
-    asistidas.length > 0
-      ? sumarPorPropiedad(asistidas, "recordatoriosEnviados") / asistidas.length
-      : 0;
-
-  const recordatoriosPromInasistencia =
-    noAsistidas.length > 0
-      ? sumarPorPropiedad(noAsistidas, "recordatoriosEnviados") / noAsistidas.length
-      : 0;
+  // Inasistencias por tipo de visita
+  const conteosPorTipo = contarPorPropiedad(faltadas, "tipoVisita");
+  const inasistenciasPorTipoVisita = {
+    PRESENCIAL: conteosPorTipo["PRESENCIAL"] || 0,
+    TELEMEDICA: conteosPorTipo["TELEMEDICA"] || 0,
+  };
 
   // Pacientes de alto riesgo
   const pacientesAltoRiesgo = pacientes.filter(
     (p) => p.puntuacionRiesgo > 70
   ).length;
 
+  // Correlación edad-no-show (simplificado: contar pacientes jóvenes vs mayores con inasistencias)
+  let correlacionEdadNoShow = 0;
+  if (pacientes.length > 0 && faltadas.length > 0) {
+    const hoy = new Date();
+    const pacientesFaltadaIds = new Set(faltadas.map((c) => c.idPaciente));
+    const pacientesConFaltadas = pacientes.filter((p) =>
+      pacientesFaltadaIds.has(p.id)
+    );
+
+    if (pacientesConFaltadas.length > 0) {
+      const edadPromedio = pacientesConFaltadas.reduce((suma, p) => {
+        const edad = hoy.getFullYear() - p.fechaNacimiento.getFullYear();
+        return suma + edad;
+      }, 0) / pacientesConFaltadas.length;
+      correlacionEdadNoShow = Math.round(edadPromedio);
+    }
+  }
+
   return {
     totalCitas: citas.length,
     tasaAsistencia,
     tasaInasistencia,
     inasistenciasPorRegion,
-    inasistenciasPorDiaSemana: inasistenciasPorDia,
-    recordatoriosPromAsistencia,
-    recordatoriosPromInasistencia,
+    inasistenciasPorTipoVisita,
     pacientesAltoRiesgo,
+    correlacionEdadNoShow,
   };
 }

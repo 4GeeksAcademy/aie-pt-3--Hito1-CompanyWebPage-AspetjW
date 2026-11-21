@@ -265,7 +265,7 @@ export function validarProveedor(proveedor) {
         errores.push("Nombre del proveedor es obligatorio");
     }
     // Tipo de proveedor
-    const tiposValidos = ["HOSPITAL", "CLINICA", "LABORATORIO", "CENTRO_IMAGENES", "ESPECIALISTA"];
+    const tiposValidos = ["HOSPITAL", "CLINICA", "LABORATORIO", "FARMACIA", "ESPECIALISTA"];
     if (!tiposValidos.includes(proveedor.tipoProveedor)) {
         errores.push("Tipo de proveedor inválido");
     }
@@ -313,7 +313,7 @@ export function validarProveedor(proveedor) {
 // ==================== VALIDACIÓN DE NOTAS CLÍNICAS ====================
 /**
  * Valida una nota clínica completa según reglas de negocio
- * Complejidad temporal: O(n) donde n es cantidad de palabras clave
+ * Complejidad temporal: O(n) donde n es cantidad de arrays
  *
  * @param nota - Nota clínica a validar
  * @returns Resultado de validación
@@ -338,54 +338,57 @@ export function validarNotaClinica(nota) {
     if (!esFechaValida(nota.fechaCreacion)) {
         errores.push("Fecha de creación inválida");
     }
-    // Tipo de documento
-    const tiposValidos = ["NOTA_EVOLUCION", "RESUMEN_ALTA", "RESULTADO_LABORATORIO", "REPORTE_IMAGENES", "RECETA"];
-    if (!tiposValidos.includes(nota.tipoDocumento)) {
-        errores.push("Tipo de documento inválido");
+    // Tipo de nota
+    const tiposValidos = ["DIAGNOSTICO", "EVOLUCION", "ALTA", "CONSULTA_EXTERNA"];
+    if (!tiposValidos.includes(nota.tipo)) {
+        errores.push("Tipo de nota inválido");
     }
     // Contenido
     if (!esStringValido(nota.contenido, 10)) {
         errores.push("Contenido debe tener al menos 10 caracteres");
     }
-    // Cantidad de palabras
-    if (!esNumeroPositivo(nota.cantidadPalabras)) {
-        errores.push("Cantidad de palabras debe ser positiva");
+    // Diagnósticos (obligatorio, no vacío)
+    if (!Array.isArray(nota.diagnosticos)) {
+        errores.push("Diagnósticos debe ser un array");
+    }
+    else if (nota.diagnosticos.length === 0) {
+        errores.push("Diagnósticos no puede estar vacío");
     }
     else {
-        // Validar que coincida aproximadamente con contenido
-        const conteoReal = nota.contenido.trim().split(/\s+/).length;
-        if (Math.abs(conteoReal - nota.cantidadPalabras) > 5) {
-            errores.push("Cantidad de palabras no coincide con contenido");
-        }
-    }
-    // Palabras clave
-    if (Array.isArray(nota.palabrasClave)) {
-        const palabrasUnicas = new Set(nota.palabrasClave);
-        if (palabrasUnicas.size !== nota.palabrasClave.length) {
-            errores.push("Palabras clave contienen duplicados");
-        }
-        for (const palabra of nota.palabrasClave) {
-            if (!esStringValido(palabra)) {
-                errores.push("Palabra clave no puede estar vacía");
+        for (const diagnostico of nota.diagnosticos) {
+            if (!esStringValido(diagnostico)) {
+                errores.push("Diagnóstico no puede estar vacío");
                 break;
             }
         }
     }
-    else {
-        errores.push("Palabras clave debe ser un array");
-    }
-    // Puntuación de confianza
-    if (nota.procesadoPorIA) {
-        if (typeof nota.puntuacionConfianza !== "number" ||
-            nota.puntuacionConfianza < 0 ||
-            nota.puntuacionConfianza > 100) {
-            errores.push("Puntuación de confianza debe estar entre 0 y 100 cuando está procesada");
-        }
+    // Medicamentos
+    if (!Array.isArray(nota.medicamentos)) {
+        errores.push("Medicamentos debe ser un array");
     }
     else {
-        if (nota.puntuacionConfianza !== -1) {
-            errores.push("Puntuación de confianza debe ser -1 cuando no está procesada");
+        for (const medicamento of nota.medicamentos) {
+            if (!esStringValido(medicamento)) {
+                errores.push("Medicamento no puede estar vacío");
+                break;
+            }
         }
+    }
+    // Recomendaciones
+    if (!Array.isArray(nota.recomendaciones)) {
+        errores.push("Recomendaciones debe ser un array");
+    }
+    else {
+        for (const recomendacion of nota.recomendaciones) {
+            if (!esStringValido(recomendacion)) {
+                errores.push("Recomendación no puede estar vacía");
+                break;
+            }
+        }
+    }
+    // Región
+    if (!["US", "UK"].includes(nota.region)) {
+        errores.push("Región debe ser US o UK");
     }
     return {
         esValido: errores.length === 0,
@@ -416,36 +419,41 @@ export function validarCita(cita) {
     if (!esStringValido(cita.idProveedor)) {
         errores.push("ID de proveedor inválido");
     }
-    // Fecha programada
-    if (!esFechaValida(cita.fechaProgramada, true)) {
-        errores.push("Fecha programada inválida");
+    // Fecha de cita
+    if (!esFechaValida(cita.fechaCita, true)) {
+        errores.push("Fecha de cita inválida");
     }
-    // Estado de asistencia
-    const estadosValidos = ["PROGRAMADA", "ASISTIO", "NO_ASISTIO", "CANCELADA", "REPROGRAMADA"];
-    if (!estadosValidos.includes(cita.estadoAsistencia)) {
-        errores.push("Estado de asistencia inválido");
+    // Estado
+    const estadosValidos = ["PROGRAMADA", "COMPLETADA", "FALTADA", "CANCELADA"];
+    if (!estadosValidos.includes(cita.estado)) {
+        errores.push("Estado de cita inválido");
     }
     // Coherencia de estado y fecha
-    if (cita.estadoAsistencia !== "PROGRAMADA" && cita.estadoAsistencia !== "REPROGRAMADA") {
-        if (cita.fechaProgramada > new Date()) {
-            errores.push("No se puede marcar cita futura con estado diferente a PROGRAMADA");
+    if (cita.estado !== "PROGRAMADA" && cita.estado !== "CANCELADA") {
+        if (cita.fechaCita > new Date()) {
+            errores.push("No se puede marcar cita futura con estado diferente a PROGRAMADA o CANCELADA");
         }
-    }
-    // Tipo de cita
-    if (!esStringValido(cita.tipoCita)) {
-        errores.push("Tipo de cita es obligatorio");
-    }
-    // Recordatorios enviados
-    if (!esNumeroPositivo(cita.recordatoriosEnviados)) {
-        errores.push("Recordatorios enviados debe ser no negativo");
-    }
-    // Región
-    if (!["US", "UK"].includes(cita.region)) {
-        errores.push("Región debe ser US o UK");
     }
     // Duración
     if (typeof cita.duracionMinutos !== "number" || cita.duracionMinutos <= 0) {
         errores.push("Duración debe ser un número positivo");
+    }
+    // Tipo de visita
+    const tiposValidos = ["PRESENCIAL", "TELEMEDICA"];
+    if (!tiposValidos.includes(cita.tipoVisita)) {
+        errores.push("Tipo de visita debe ser PRESENCIAL o TELEMEDICA");
+    }
+    // Razón de visita
+    if (!esStringValido(cita.razonVisita)) {
+        errores.push("Razón de visita es obligatoria");
+    }
+    // Monto facturado
+    if (!esNumeroPositivo(cita.montoFacturado)) {
+        errores.push("Monto facturado debe ser no negativo");
+    }
+    // Región
+    if (!["US", "UK"].includes(cita.region)) {
+        errores.push("Región debe ser US o UK");
     }
     return {
         esValido: errores.length === 0,

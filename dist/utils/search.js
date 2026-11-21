@@ -44,11 +44,11 @@ export function busquedaLinealTodos(array, predicado) {
  * @param array - Array ordenado a buscar
  * @param valor - Valor a encontrar
  * @param comparadorFn - Función comparadora (retorna <0, 0, o >0)
- * @returns Elemento coincidente o undefined
+ * @returns Índice del elemento coincidente o -1 si no se encuentra
  */
 export function busquedaBinaria(array, valor, comparadorFn) {
     if (!Array.isArray(array) || array.length === 0) {
-        return undefined;
+        return -1;
     }
     let izquierda = 0;
     let derecha = array.length - 1;
@@ -56,7 +56,7 @@ export function busquedaBinaria(array, valor, comparadorFn) {
         const medio = Math.floor((izquierda + derecha) / 2);
         const comparacion = comparadorFn(array[medio], valor);
         if (comparacion === 0) {
-            return array[medio];
+            return medio;
         }
         else if (comparacion < 0) {
             izquierda = medio + 1;
@@ -65,7 +65,7 @@ export function busquedaBinaria(array, valor, comparadorFn) {
             derecha = medio - 1;
         }
     }
-    return undefined;
+    return -1;
 }
 /**
  * Búsqueda binaria para encontrar posición de inserción
