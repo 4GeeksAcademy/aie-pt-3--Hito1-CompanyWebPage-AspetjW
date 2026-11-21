@@ -1,7 +1,7 @@
 # 🔍 Auditoría Final del Proyecto — HealthCore (5 Milestones)
 
-**Fecha:** Noviembre 21, 2024  
-**Estado:** 4/5 Milestones auditados ✅  
+**Fecha:** Noviembre 21, 2025  
+**Estado:** 4/5 Milestones auditados y corregidos ✅  
 **Responsable:** Copilot AI + Equipo de Desarrollo
 
 ---
@@ -80,39 +80,54 @@
 
 ---
 
-### **M2: TypeScript Utilities ✅**
+### **M2: TypeScript Utilities ✅ + 🔧**
 
 **Criterios de Aceptación:**
-- ✅ `src/types/models.ts` — 15+ interfaces tipo-seguras
-- ✅ `src/utils/search.ts` — Búsqueda lineal y binaria
-- ✅ `src/utils/collections.ts` — Filtrado, ordenamiento, agrupación
-- ✅ `src/utils/transformations.ts` — Agregaciones y reportes
-- ✅ `src/utils/validations.ts` — Validaciones de reglas de negocio
+- ✅ `src/types/models.ts` — Interfaces alineadas con BRIEFING
+  - ✅ `NotaClinica`: tipo → tipoDocumento, + diagnosticos, medicamentos, recomendaciones, region
+  - ✅ `Cita`: fechaProgramada → fechaCita, estadoAsistencia → estado, + razonVisita, montoFacturado
+  - ✅ `TipoProveedor`: FARMACIA incluido, sin CENTRO_IMAGENES
+- ✅ `src/utils/search.ts` — Búsqueda alineada
+  - ✅ `busquedaBinaria()` devuelve índice (no elemento/undefined)
+- ✅ `src/utils/collections.ts` — Filtrado y ordenamiento completos
+- ✅ `src/utils/transformations.ts` — Reportes de proveedores y predicción alineados
+  - ✅ Umbrales de riesgo del BRIEFING aplicados
+- ✅ `src/utils/validations.ts` — Validaciones de Cita y Nota del BRIEFING
 - ✅ `src/__tests__/` — 45+ casos de test (95%+ coverage)
 - ✅ Funciones puras e inmutables
 - ✅ Sin tipos `any`
 - ✅ Documentación de cada función
 
+**Correcciones Aplicadas (PR #5):**
+1. ✅ Renombrados campos: `tipo` → `tipoDocumento` en NotaClinica
+2. ✅ Añadidos campos faltantes: diagnosticos, medicamentos, recomendaciones, region
+3. ✅ NotaClinica ahora integra campos clínicos completos
+4. ✅ Cita: cambio de `fechaProgramada/estadoAsistencia` → `fechaCita/estado`
+5. ✅ Cita: añadidos `razonVisita` y `montoFacturado`
+6. ✅ `busquedaBinaria()` devuelve índice (no -1 por elemento no encontrado)
+7. ✅ Reportes: Validación de umbrales de riesgo (proveedores, predicción)
+8. ✅ Validaciones de Cita/Nota alineadas con reglas de negocio
+
 **Resultados Cuantitativos:**
 - **LOC:** 1,888
 - **Funciones:** 25+
-- **Tipos:** 15+
+- **Tipos:** 15+ (todos alineados BRIEFING)
 - **Tests:** 45+
 - **Coverage:** 95%+
 
-**Estado:** ✅ COMPLETADO Y VALIDADO (v1.0.0-M2)
+**Estado:** ✅ COMPLETADO, VALIDADO Y CORREGIDO (v1.0.1-M2)
 
 ---
 
-### **M3: Talent Pipeline Tracker ✅**
+### **M3: Talent Pipeline Tracker ✅ + 🔧**
 
 **Criterios de Aceptación:**
 - ✅ Página de listado (/) — Candidatos con filtros
-- ✅ Página de detalle (/candidates/[id]) — Campos completos
+- ✅ Página de detalle (/candidates/[id]) — Campos completos (con Promise<params>)
 - ✅ Filtros por estado y etapa (useSearchParams sin reload)
-- ✅ Búsqueda reactiva por nombre/email
+- ✅ Búsqueda reactiva por nombre/email (memoización de filters)
 - ✅ Cambio de estado/etapa (PATCH)
-- ✅ CRUD de notas (POST/DELETE)
+- ✅ CRUD de notas (POST/DELETE con UX de carga/éxito)
 - ✅ Crear candidatura (POST)
 - ✅ Editar candidatura (PUT)
 - ✅ Estados de carga, éxito y error
@@ -120,15 +135,26 @@
 - ✅ Mobile-first (Tailwind v4)
 - ✅ ARIA y accesibilidad
 - ✅ Integración API completa
+- ✅ .env.example documentado
+
+**Correcciones Aplicadas (PR #6):**
+1. ✅ `useCandidates`: isMountedRef ahora se restaura a true al montar
+2. ✅ `filters` ahora es useMemo para evitar renders infinitos post-filtro
+3. ✅ [id] route: `params` manejado correctamente con `await` (Next 16)
+4. ✅ Detalle recibe ID correcto y todas operaciones funcionan
+5. ✅ Delete de nota: UX mejorada con estados de carga y confirmación
+6. ✅ .env.example creado con todas las vars de entorno
+7. ✅ Tracker context: especializado en modelo HealthCore (no genérico)
 
 **Resultados Cuantitativos:**
-- **LOC:** 502
+- **LOC:** 502 (refactorizado con hooks optimizados)
 - **Componentes:** 8+
-- **Rutas dinámicas:** 2
+- **Rutas dinámicas:** 2 (con Promise<params> correcto)
 - **Lighthouse score:** 90+
 - **API endpoints consumidos:** 7+
+- **UX hooks:** 1 principal (useCandidates) optimizado
 
-**Estado:** ✅ COMPLETADO Y VALIDADO (v1.0.0-M3)
+**Estado:** ✅ COMPLETADO, VALIDADO Y CORREGIDO (v1.0.1-M3)
 
 ---
 
@@ -341,25 +367,30 @@ Estado:   LISTO PARA ENTREGA
 - Gobernanza de agentes establecida ✅
 - Próximo hito (M5) en planificación ✅
 
-**Versión de entrega:** `v2.0.0-M4`  
-**Fecha de auditoría:** Noviembre 21, 2024  
-**Responsable:** Copilot AI + Equipo de Desarrollo
+**Versión de entrega:** `v2.0.1-M4+fixes`  
+**Fecha de auditoría:** Noviembre 21, 2025  
+**Responsable:** Copilot AI + Equipo de Desarrollo  
+**Status:** ✅ LISTO PARA ENTREGA (4/5 Milestones auditados y corregidos)
 
 ---
 
 ## 🔗 Enlaces de Referencia
 
-| Recurso | Enlace |
-|---------|--------|
-| **README** | [README.md](../README.md) |
-| **PROGRESS** | [docs/PROGRESS.md](./PROGRESS.md) |
-| **BRIEFING** | [BRIEFING.md](../BRIEFING.md) |
-| **Memory Bank** | [memory-bank/](../memory-bank/) |
-| **AGENTS** | [AGENTS.md](../AGENTS.md) |
+| Recurso | Enlace | Status |
+|---------|--------|--------|
+| **README** | [README.md](../README.md) | ✅ |
+| **PROGRESS** | [docs/PROGRESS.md](./PROGRESS.md) | ✅ |
+| **BRIEFING** | [BRIEFING.md](../BRIEFING.md) | ✅ |
+| **Memory Bank** | [memory-bank/](../memory-bank/) | ✅ |
+| **AGENTS** | [AGENTS.md](../AGENTS.md) | ✅ |
+| **M2 Corrections** | [docs/01-MILESTONE-2/CORRECTIONS.md](01-MILESTONE-2/CORRECTIONS.md) | ✅ PR #5 |
+| **M3 Corrections** | [docs/02-MILESTONE-3/CORRECTIONS.md](02-MILESTONE-3/CORRECTIONS.md) | ✅ PR #6 |
 
 ---
 
 **Documento generado por:** Copilot AI  
 **Responsable:** Equipo de Desarrollo HealthCore  
-**Última revisión:** Noviembre 21, 2024
+**Última revisión:** Noviembre 21, 2025  
+**Versión:** v2.0.1-M4+fixes  
+**Status:** ✅ LISTO PARA ENTREGA (4/5 Milestones auditados y corregidos)
 

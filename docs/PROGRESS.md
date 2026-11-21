@@ -1,6 +1,6 @@
 # 📊 Progreso del Proyecto — HealthCore (5 Milestones)
 
-**Última actualización:** Noviembre 21, 2024  
+**Última actualización:** Noviembre 21, 2025  
 **Estado General:** 4/5 Milestones completados ✅ (En progreso 🚀)
 
 ---
@@ -12,13 +12,13 @@
 Progreso: 80% (4 de 5 milestones completados)
 ```
 
-| Hito | Estado | Tareas | Inicio | Fin Esperado |
-|------|--------|--------|--------|-------------|
-| **M1** | ✅ Completado | 1/1 | — | — |
-| **M2** | ✅ Completado | 5/5 | — | — |
-| **M3** | ✅ Completado | 8/8 | — | — |
-| **M4** | ✅ Completado | 6/6 | — | — |
-| **M5** | 🚀 En desarrollo | 0/5 | Próx. | Feb 2025 |
+| Hito | Estado | Tareas | Correcciones | Fin |
+|------|--------|--------|--------------|-----|
+| **M1** | ✅ Completado | 1/1 | — | ✅ |
+| **M2** | ✅ Completado + Auditado | 5/5 | ✅ PR #5 | ✅ |
+| **M3** | ✅ Completado + Auditado | 8/8 | ✅ PR #6 | ✅ |
+| **M4** | ✅ Completado | 6/6 | — | ✅ |
+| **M5** | 🚀 En planificación | 0/5 | — | Feb 2025 |
 
 ---
 
@@ -58,8 +58,9 @@ Progreso: 80% (4 de 5 milestones completados)
 - **Coverage:** 95%+
 - **Tests:** 45+ casos
 
-**Estado:** Completado y auditado ✅  
-**Ramas:** `feature/milestone-2` → merged to `main` (tag: v1.0.0-M2)  
+**Estado:** Completado, auditado y corregido ✅  
+**Ramas:** `feature/milestone-2` → `main` (v1.0.0-M2) + `fix/milestone-2-briefing-alignment` → `main` (PR #5)  
+**Correcciones:** [CORRECTIONS.md](01-MILESTONE-2/CORRECTIONS.md) — Alineación BRIEFING (tipos, búsqueda, validaciones, reportes)  
 **Documentación:** [docs/01-MILESTONE-2/](../docs/01-MILESTONE-2/)
 
 ---
@@ -86,8 +87,9 @@ Progreso: 80% (4 de 5 milestones completados)
 - **Accesibilidad:** ARIA + WCAG AA compatible
 - **Performance:** Lighthouse > 80
 
-**Estado:** Completado y auditado ✅  
-**Ramas:** `feature/milestone-3` → merged to `main` (tag: v1.0.0-M3)  
+**Estado:** Completado, auditado y corregido ✅  
+**Ramas:** `feature/milestone-3` → `main` (v1.0.0-M3) + `fix/milestone-3-runtime-issues` → `main` (PR #6)  
+**Correcciones:** [CORRECTIONS.md](02-MILESTONE-3/CORRECTIONS.md) — Runtime fixes (useCandidates, filters memoization, Promise<params>, delete UX)  
 **Demo:** [/uis/talent-pipeline-tracker/](../uis/talent-pipeline-tracker/)  
 **Documentación:** [docs/02-MILESTONE-3/](../docs/02-MILESTONE-3/)
 
@@ -209,15 +211,18 @@ TOTAL (4/5)         : 4,273 LOC
 
 ## 🎯 Próximos Pasos
 
-### **Inmediato (Esta semana)**
+### **Inmediato (Completado esta semana)**
 1. ✅ Restructuración de documentación (5 milestones)
 2. ✅ Consolidación de archivos redundantes
 3. ✅ Crear README.md unificado
+4. ✅ Auditoría y correcciones de M2 y M3
+5. ✅ Documentación de correcciones en `/docs`
 
 ### **Corto plazo (Próximas 2 semanas)**
-4. Crear `docs/04-MILESTONE-5/` con plantilla
-5. Iniciar rama `feature/milestone-5`
-6. Diseñar esquema de base de datos
+6. Preparar Milestone 5 (Backend FastAPI)
+7. Crear `docs/04-MILESTONE-5/PLANNING.md`
+8. Iniciar rama `feature/milestone-5`
+9. Diseñar esquema de base de datos
 
 ### **Mediano plazo (Próximo mes)**
 7. Implementar FastAPI skeleton
@@ -245,6 +250,8 @@ TOTAL (4/5)         : 4,273 LOC
 | **M4 Docs** | [docs/03-MILESTONE-4/](../docs/03-MILESTONE-4/) |
 | **M5 Docs (Template)** | [docs/04-MILESTONE-5/](../docs/04-MILESTONE-5/) |
 | **Auditoría Final** | [docs/AUDIT.md](./AUDIT.md) |
+| **M2 Corrections** | [docs/01-MILESTONE-2/CORRECTIONS.md](01-MILESTONE-2/CORRECTIONS.md) |
+| **M3 Corrections** | [docs/02-MILESTONE-3/CORRECTIONS.md](02-MILESTONE-3/CORRECTIONS.md) |
 
 ---
 
